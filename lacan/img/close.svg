@@ -1,0 +1,12 @@
+<svg width="21" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="9dpvu1tb5a">
+            <feColorMatrix in="SourceGraphic" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"/>
+        </filter>
+    </defs>
+    <g transform="translate(2 1)" filter="url(#9dpvu1tb5a)" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g stroke="#165B38" stroke-width="2">
+            <path d="M.185 1.147 17 16.82M.185 16.438 17 .765"/>
+        </g>
+    </g>
+</svg>
