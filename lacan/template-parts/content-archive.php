@@ -24,7 +24,7 @@
 				<?php
 				the_excerpt();
 				?>
-			<div class="read_more"> לפרטים נוספים והרשמה ></div>
+			<a href="<?php the_permalink(); ?>" class="read_more">לפרטים נוספים והרשמה ></a>
 		</div>
 	</div>
 	

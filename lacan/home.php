@@ -8,14 +8,15 @@ get_header();
   <div class="main_content">
     <div class="content_header">
       <div class="logo">
-        <a href="/"><img src="<?php echo get_template_directory_uri(); ?>/img/group-31-copy.svg" class="Group-31-Copy"></a>
+        <a href="/"><img src="<?php the_field('logo_black', 'option'); ?>" class="logo_rtl"></a>
+        <a href="/"><img src="<?php the_field('logo_eng', 'option'); ?>" class="logo_eng"></a>
       </div>
       <div class="achive">
         <img src="<?php echo get_template_directory_uri(); ?>/img/if.png" class="IF">
       </div>
     </div>
     <div class="main_page_body">
-      <div class="lottie_img"></div>
+      <div class="lottie_img" id="lottie"></div>
       <div class="main_page_text">
         <h1 class="main_title"><?php the_field('main_title'); ?></h1>
         <div class="text"><?php the_field('main_text'); ?></div>
@@ -31,7 +32,7 @@ get_header();
         <div class="tab-title"><?php the_field('tab_name'); ?> <span class="tab_toogle"></span></div>
         <div class="tab-subtitle"><?php the_field('tab_subname'); ?></div>
         <section class="article-widget">
-          <div class="owl-carousel owl-theme">
+          <div class="owl-carousel owl-theme owl1">
             <?php
             $query = new WP_Query('cat=1&posts_per_page=3');
             if ($query->have_posts()) {
@@ -41,10 +42,19 @@ get_header();
                 <div class="article-item">
                   <article>
                     <figure>
-                      <img src="<?php the_post_thumbnail_url(500, 300); ?>">
+                      <a href="<?php the_permalink(); ?>"><img src="<?php the_post_thumbnail_url(500, 300); ?>"></a>
                     </figure>
-                    <div class="article-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
-                    <?php the_excerpt(); ?>
+                    <div class="tab_article_content">
+                      <div class="dots_clone">
+                        <div class="owl-dots">
+                          <button role="button" class="owl-dot active"><span></span></button>
+                          <button role="button" class="owl-dot"><span></span></button>
+                          <button role="button" class="owl-dot"><span></span></button>
+                        </div>
+                      </div>
+                      <div class="article-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
+                      <?php the_excerpt(); ?>
+                    </div>
                   </article>
                 </div>
             <?php
@@ -71,10 +81,19 @@ get_header();
                 <div class="article-item">
                   <article>
                     <figure>
-                      <img src="<?php the_post_thumbnail_url(500, 300); ?>">
+                      <a href="<?php the_permalink(); ?>"><img src="<?php the_post_thumbnail_url(500, 300); ?>"></a>
                     </figure>
-                    <div class="article-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
-                    <?php the_excerpt(); ?>
+                    <div class="tab_article_content">
+                      <div class="dots_clone">
+                        <div class="owl-dots">
+                          <button role="button" class="owl-dot active"><span></span></button>
+                          <button role="button" class="owl-dot"><span></span></button>
+                          <button role="button" class="owl-dot"><span></span></button>
+                        </div>
+                      </div>
+                      <div class="article-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
+                      <?php the_excerpt(); ?>
+                    </div>
                   </article>
                 </div>
             <?php
@@ -89,7 +108,7 @@ get_header();
     </ul>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.2.3/ResizeSensor.min.js"></script>
+
 <script>
   jQuery(document).ready(function($) {
     var owl = $('.owl-carousel').owlCarousel({
@@ -98,53 +117,44 @@ get_header();
       items: 1,
       nav: true,
       rtl: true,
-      dots: false,
-      navText: ["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"],
-      responsive: true,
-      responsiveClass: true,
-      responsiveRefreshRate: 100,
-      responsiveBaseElement: $(".article-widget")[0],
-      responsive: {
-        0: {
-          items: 1
-        },
-        350: {
-          items: 1
-        },
-        600: {
-          items: 1
-        },
-      },
+      dots: true,
+
+      navText: ["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]
     })
 
-    $('.owl2').owlCarousel({
+    var owl2 = $('.owl2').owlCarousel({
       loop: false,
       margin: 10,
       items: 1,
       nav: true,
       rtl: true,
       dots: true,
-      navText: ["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"],
-      responsive: true,
-      responsiveClass: true,
-      responsiveRefreshRate: 100,
-      responsiveBaseElement: $(".article-widget")[1],
-      responsive: {
-        0: {
-          items: 1
-        },
-        350: {
-          items: 1
-        },
-        600: {
-          items: 1
-        },
-      },
-    })
 
+      navText: ["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]
+    })
     new ResizeSensor(jQuery('#accordion > li'), function() {
-      owl.trigger('refresh.owl.carousel').delay(250).fadeIn(250);
+      owl.trigger('refresh.owl.carousel').delay(50).fadeIn(50);
     });
+    var anim;
+    var elem = document.getElementById("lottie");
+    var animData = {
+      container: elem,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      rendererSettings: {
+        progressiveLoad: true,
+        preserveAspectRatio: "xMidYMid meet",
+        imagePreserveAspectRatio: "xMidYMid meet"
+      },
+      path: '<?php echo get_template_directory_uri(); ?>/img/Glass_Shape_Animation.json'
+    };
+    anim = lottie.loadAnimation(animData);
+    anim.addEventListener("DOMLoaded", function() {
+      $("#lottie").css("background", "url()");
+    });
+
+
 
   });
 </script>

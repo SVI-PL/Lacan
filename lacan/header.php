@@ -30,8 +30,10 @@
 				<div class="header_search">
 					<div class="search_icon"></div>
 					<div class="search_block">
-						<div class="serch_qwery">
-							<?php get_search_form(); ?>
+						<div class="search_container">
+							<div class="serch_qwery">
+								<?php get_search_form(); ?>
+							</div>
 						</div>
 					</div>
 					<div class="lang_switch"><?php echo do_shortcode("[language-switcher]") ?></div>
@@ -39,8 +41,8 @@
 				<div class="header_menu">
 					<div class="menu_icon"></div>
 					<div class="menu_block">
-						<div class="menu_wiev">
-							<div class="subs_form">
+						<div class="menu_wiev" id="lottie2">
+							<div class="subs_form subs_in">
 								<div class="forms_title"><?php the_field('subs_form_title', 'option'); ?></div>
 								<?php $contact_form = get_field('contact_form', 'option');
 								echo do_shortcode("$contact_form"); ?>
@@ -68,6 +70,7 @@
 					<div class="subs_icon"></div>
 					<div class="subs_block">
 						<div class="subs_form">
+						<div class="subs_form_close"></div>
 							<div class="forms_title"><?php the_field('subs_form_title', 'option'); ?></div>
 							<div class="form_text"><?php the_field('subs_form_text', 'option'); ?></div>
 							<?php $contact_form = get_field('contact_form', 'option');

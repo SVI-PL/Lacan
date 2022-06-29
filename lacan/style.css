@@ -4,7 +4,7 @@ Theme URI: http://lacan.tcadev.host/
 Author: Milvus Agency
 Author URI: http://milvus.agency/
 Description: Description
-Version: 1.0.0
+Version: 1.0.1
 Tested up to: 5.4
 Requires PHP: 5.6
 License: GNU General Public License v2 or later
@@ -489,21 +489,21 @@ table {
 /* Links
 --------------------------------------------- */
 a {
-	color: #4169e1;
+	color: inherit;
 }
 
 a:visited {
-	color: #800080;
+	color: inherit;
 }
 
 a:hover,
 a:focus,
 a:active {
-	color: #191970;
+	color: inherit;
 }
 
 a:focus {
-	outline: thin dotted;
+	outline: 0;
 }
 
 a:hover,

@@ -30,27 +30,27 @@ jQuery(document).ready(function ($) {
 				e.stopPropagation();
 				$this = $(this);
 				if ($this.hasClass('out')) {
-					
+
 				} else {
 					$this.addClass('out');
 					$this.siblings().removeClass('out');
 				}
 			});
 		}
-		$(".tab_toogle").on('touchstart touchend', function (e) {
-				$("#accordion>li").removeClass('out');
+		$(".tab_toogle").on('click', function (e) {
+			$("#accordion>li").removeClass('out');
 		});
 	});
 
-	
+
 
 	// Открытие панели поиска
 	$(".search_icon").click(function () {
 		$(this).toggleClass("close");
 		$(".search_block").toggleClass("open");
-		if ($(window).width() >= '899'){
+		if ($(window).width() >= '899') {
 			$(".tabs").toggleClass("open");
-			 };
+		};
 		$(".menu_icon").removeClass("close");
 		$(".menu_block").removeClass("open");
 		$(".subs_icon").removeClass("subs_icon_open");
@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
 	$(".menu_icon").click(function () {
 		$(this).toggleClass("close");
 		$(".menu_block").toggleClass("open");
-
+		$(".tabs").removeClass("open");
 		$(".search_icon").removeClass("close");
 		$(".search_block").removeClass("open");
 		$(".subs_icon").removeClass("subs_icon_open");
@@ -76,6 +76,10 @@ jQuery(document).ready(function ($) {
 		$(".menu_icon").removeClass("close");
 		$(".menu_block").removeClass("open");
 	});
+	$(".subs_form_close").click(function () {
+		$(".subs_block").toggleClass("open");
+		$(".subs_icon").toggleClass("subs_icon_open");
+	});
 	// Добавление класса для меню
 	$("ul#primary-menu>li ").click(function () {
 		$('ul#primary-menu>li').removeClass('current_item');
@@ -90,19 +94,27 @@ jQuery(document).ready(function ($) {
 		}
 	});
 	// Развернуть блок контента
-	$(".article_btn").click(function () {
-		$(".article_content_wraper").toggleClass("open");
+	$(".image_wraper").click(function () {
+		if ($(".article_content_wraper").hasClass("open")) {
+			$(".article_content_wraper").removeClass("open");
+			$(".article_content_wraper").css({ transition: 'all 1s ease-in-out 0s', width: '70%' });
+		} else {
+			$(".article_content_wraper").addClass("open");
+			$(".article_content_wraper").css({ transition: 'all 1s ease-in-out 0s', width: '99%' });
+		}
 	});
+
 	$(".article_content_wraper").resizable({
-        handleSelector: ".article_btn",
-        resizeHeight: false,
-        resizeWidthFrom: 'left',
-      });
-	  $(".article_content_wraper").mouseleave(function () {
+		handleSelector: ".article_btn",
+		resizeHeight: false,
+		resizeWidthFrom: 'left',
+	});
+
+	$(".article_content_wraper").mouseleave(function () {
 		var artwidth = parseInt($(".article_content_wraper").css("width"));
 		$.cookie('art_width', artwidth);
-      });    
-	  
+	});
+
 	// Search on ajax 
 	var searchTerm = '';
 
@@ -135,12 +147,12 @@ jQuery(document).ready(function ($) {
 	$('.search-input').focusin(function () {
 		$('.result-search').fadeIn();
 	})
-
-	$(document).mouseup(function (e) {
-		if ((!$('.result-search').is(e.target) && $('.result-search').has(e.target).length === 0) && (!$('.search-input').is(e.target) && $('.search-input').has(e.target).length === 0)) {
-			$('.result-search').fadeOut();
-		}
-	});
+	// Скрыть выдачу при клике вне поля ввода
+	// $(document).click(function (e) {
+	// 	if ((!$('.result-search').is(e.target) && $('.result-search').has(e.target).length === 0) && (!$('.search-input').is(e.target) && $('.search-input').has(e.target).length === 0)) {
+	// 		$('.result-search').fadeOut();
+	// 	}
+	// });
 
 
 	// Font size change
@@ -174,20 +186,108 @@ jQuery(document).ready(function ($) {
 	});
 
 	// Cookies
-	
-	console.log(fontSize);
-	if ($.cookie('mysite_font_size') == null) { }
-	else {
-		$('.entry-content').css("font-size", $.cookie('mysite_font_size'));
-	}
-	if ($.cookie('mysite_color') == null) { }
-	if ($.cookie('mysite_color') == "false") {
-		$('.article_content_wraper').toggleClass("white");
-	}
-	if ($.cookie('art_width') == null) { }
-	else {
-		$(".article_content_wraper").css("width", $.cookie('art_width'));
-	}
+	$(function () {
+		if ($.cookie('mysite_font_size') == null) { }
+		else {
+			$('.entry-content').css("font-size", $.cookie('mysite_font_size'));
+		}
+		if ($.cookie('mysite_color') == null) { }
+		if ($.cookie('mysite_color') == "false") {
+			$('.article_content_wraper').toggleClass("white");
+		}
+		if ($.cookie('art_width') == null) { }
+		else {
+			$(".article_content_wraper").css("width", $.cookie('art_width'));
+		}
+	});
+
+	$(function () {
+		var doc = $(document),
+			fixed = false,
+			anchor = doc.find('article');
+		var onScroll = function (e) {
+			var docTop = doc.scrollTop(),
+				anchorTop = anchor.offset().top;
+			if (docTop > anchorTop) {
+				if (!fixed) {
+					$("article h1").addClass('fixed');
+					$(".logo").addClass('fixed');
+					$(".article_content_wraper").addClass("open");
+					$(".article_content_wraper").css({ transition: 'all 1s ease-in-out 0s', width: '99%' });
+					fixed = true;
+				}
+			} else {
+				if (fixed) {
+					$("article h1").removeClass('fixed');
+					$(".logo").removeClass('fixed');
+					// $(".article_content_wraper").css({ transition: 'all 1s ease-in-out 1s', width: '70%' });
+					fixed = false;
+				}
+			}
+		};
+		$(".article_content").on('scroll', onScroll);
+
+	});
+
+
+	$(".tooltip_time").on('click', function () {
+		if ($(".time_descr").hasClass('show')) {
+			$(".time_descr").fadeOut().removeClass('show');
+			$(".tooltip_items").css("border-right", "solid 2px transparent");
+			$(".tooltip_descr").css("border-right", "solid 2px transparent");
+		} else {
+			$(".tooltip_items").css("border-right", "solid 2px var(--dark-green-blue)");
+			$(".tooltip_descr").css("border-right", "solid 2px var(--dark-green-blue)");
+			$(".time_descr").fadeIn().css("display", "flex").addClass("show");
+			$(".price_descr").removeClass('show').css("display", "none");
+			$(".loc_descr").removeClass('show').css("display", "none");
+		}
+	});
+
+	$(".tooltip_price").on('click', function () {
+		if ($(".price_descr").hasClass('show')) {
+			$(".price_descr").fadeOut().removeClass('show');
+			$(".tooltip_items").css("border-right", "solid 2px transparent");
+			$(".tooltip_descr").css("border-right", "solid 2px transparent");
+		} else {
+			$(".tooltip_items").css("border-right", "solid 2px var(--dark-green-blue)");
+			$(".tooltip_descr").css("border-right", "solid 2px var(--dark-green-blue)");
+			$(".price_descr").fadeIn().css("display", "flex").addClass("show");
+			$(".time_descr").removeClass('show').css("display", "none");
+			$(".loc_descr").removeClass('show').css("display", "none");
+		}
+	});
+
+	$(".tooltip_loc").on('click', function () {
+		if ($(".loc_descr").hasClass('show')) {
+			$(".loc_descr").fadeOut().removeClass('show');
+			$(".tooltip_items").css("border-right", "solid 2px transparent");
+			$(".tooltip_descr").css("border-right", "solid 2px transparent");
+		} else {
+			$(".tooltip_items").css("border-right", "solid 2px var(--dark-green-blue)");
+			$(".tooltip_descr").css("border-right", "solid 2px var(--dark-green-blue)");
+			$(".loc_descr").fadeIn().css("display", "flex").addClass("show");
+			$(".time_descr").removeClass('show').css("display", "none");
+			$(".price_descr").removeClass('show').css("display", "none");
+		}
+	});
+
+	var elem2 = document.getElementById("lottie2");
+	var animData2 = {
+		container: elem2,
+		renderer: 'svg',
+		loop: true,
+		autoplay: true,
+		rendererSettings: {
+		  progressiveLoad: true,
+		  preserveAspectRatio: "xMidYMid meet",
+		  imagePreserveAspectRatio: "xMidYMid meet"
+		},
+		path: '/wp-content/themes/lacan/img/Glass_Shape_Animation.json'
+	  };
+	  anim2 = lottie.loadAnimation(animData2);
+	  anim2.addEventListener("DOMLoaded", function() {
+		$("#lottie2").css("background", "url()");
+	  });
 
 });
-

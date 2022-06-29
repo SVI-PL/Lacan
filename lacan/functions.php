@@ -144,8 +144,7 @@ add_action('widgets_init', 'lacan_widgets_init');
 function lacan_scripts()
 {
 	wp_enqueue_style('lacan-style', get_stylesheet_uri(), array(), _S_VERSION);
-	wp_enqueue_style('lacan-main-style', get_template_directory_uri() . '/css/main.css', array());
-	wp_style_add_data('lacan-style', 'rtl', 'replace');
+	wp_enqueue_style('lacan-main-style', get_template_directory_uri() . '/css/main.css', array(), _S_VERSION);
 	wp_enqueue_style('lacan-owl-carousel', get_template_directory_uri() . '/css/owl.carousel.min.css', array(), _S_VERSION);
 	wp_enqueue_style('lacan-owl-theme', get_template_directory_uri() . '/css/owl.theme.default.min.css', array(), _S_VERSION);
 
@@ -154,8 +153,8 @@ function lacan_scripts()
 	wp_enqueue_script('lacan-resize-js', get_template_directory_uri() . '/js/jquery-resizable.js', array(), _S_VERSION, true);
 	wp_enqueue_script('lacan-owl-js', get_template_directory_uri() . '/js/owl.carousel.min.js', array(), _S_VERSION, true);
 	wp_enqueue_script('lacan-cookie-js', get_template_directory_uri() . '/js/jquery.cookie.js', array(), _S_VERSION, true);
-
-
+	wp_enqueue_script('lottie-js', get_template_directory_uri() . '/js/lottie.js', array(), _S_VERSION, true);
+	
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
@@ -246,7 +245,7 @@ function ba_ajax_search()
 					?>
 				</div>
 				<?php the_excerpt(); ?>
-				<div class="read_more"> לפרטים נוספים והרשמה &gt;</div>
+				<a href="<?php the_permalink(); ?>"><div class="read_more"> לפרטים נוספים והרשמה &gt;</div></a>
 			</div>
 		<?php
 		}

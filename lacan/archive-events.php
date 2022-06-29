@@ -14,16 +14,14 @@ get_header();
 <div class="main_content archive">
 	<div class="article_header">
 		<div class="logo">
-			<a href="/"><img src="<?php the_field('logo_black', 'option'); ?>" class="logo_bw"></a>
+		<a href="/"><img src="<?php the_field('logo_black', 'option'); ?>" class="logo_rtl"></a>
+        <a href="/"><img src="<?php the_field('logo_eng', 'option'); ?>" class="logo_eng"></a>
 		</div>
 	</div>
 	<div class="main_page_body">
-	<div class="entry-header"><?php the_archive_title('<h1 class="page-title">', '</h1>'); ?></div>
+		<div class="entry-header"><?php the_archive_title('<h1 class="page-title">', '</h1>'); ?></div>
 		<div class="archive_text">
-		<p> לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית. סת אלמנקום ניסי נון ניבאה. דס איאקוליס וולופטה דיאם. וסטיבולום אט דולור, קראס
-		 לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית. סת אלמנקום ניסי נון ניבאה. דס איאקוליס וולופטה דיאם. וסטיבולום אט דולור, קראס </p>
-
-		<p> לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית. סת אלמנקום ניסי נון ניבאה. דס איאקוליס וולופטה דיאם. וסטיבולום אט דולור, קראס </p>
+			<?php the_field('events_description', 'option'); ?>
 		</div>
 		<div class="archive_filters">
 			<div class="filter_by">סינון לפי ></div>

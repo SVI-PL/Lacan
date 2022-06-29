@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying search results pages
  *
@@ -9,31 +10,22 @@
 
 get_header();
 ?>
-
-	<main id="primary" class="site-main">
-
-		<?php if ( have_posts() ) : ?>
-
-			<header class="page-header">
-				<h1 class="page-title">
-					<?php
-					/* translators: %s: search query. */
-					printf( esc_html__( 'Search Results for: %s', 'lacan' ), '<span>' . get_search_query() . '</span>' );
-					?>
-				</h1>
-			</header><!-- .page-header -->
-
-			<?php
+<div class="main_content page">
+	<div class="article_header">
+		<div class="logo">
+			<a href="/"><img src="<?php the_field('logo_black', 'option'); ?>" class="logo_bw"></a>
+		</div>
+	</div>
+	<div class="main_page_body">
+		<div class="entry-header">
+			<h1 class="entry-title"><?php printf(esc_html__('Search Results for: %s', 'lacan'), '<span>' . get_search_query() . '</span>'); ?></h1>
+		</div>
+		<?php if (have_posts()) : ?>
+		<?php
 			/* Start the Loop */
-			while ( have_posts() ) :
+			while (have_posts()) :
 				the_post();
-
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
+				get_template_part('template-parts/content', 'search');
 
 			endwhile;
 
@@ -41,13 +33,12 @@ get_header();
 
 		else :
 
-			get_template_part( 'template-parts/content', 'none' );
+			get_template_part('template-parts/content', 'none');
 
 		endif;
 		?>
-
-	</main><!-- #main -->
+	</div>
+</div>
 
 <?php
-get_sidebar();
 get_footer();

@@ -14,7 +14,8 @@ get_header();
 <div class="main_content archive">
 	<div class="article_header">
 		<div class="logo">
-			<a href="/"><img src="<?php the_field('logo_black', 'option'); ?>" class="logo_bw"></a>
+		<a href="/"><img src="<?php the_field('logo_black', 'option'); ?>" class="logo_rtl"></a>
+        <a href="/"><img src="<?php the_field('logo_eng', 'option'); ?>" class="logo_eng"></a>
 		</div>
 	</div>
 	<div class="main_page_body">
