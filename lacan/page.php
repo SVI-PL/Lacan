@@ -21,7 +21,8 @@ get_header();
 		</div>
 	</div>
 	<div class="main_page_body">
-	<div class="entry-header"><?php the_title( '<h1 class="entry-title">', '</h1>' ); ?></div>
+	<div class="entry-header"></div>
+	<div class="event_title"><?php the_title(); ?></div>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php lacan_post_thumbnail(); ?>
 	<div class="entry-content">

@@ -76,17 +76,20 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="entry-content media">
 		<div class="video_box modal-trigger-<?php the_ID(); ?>">
-		<?php if (get_field('my_video') == true) {
-			echo do_shortcode('[video src="' . get_field('my_video') . '"]');
-		} else { ?>
-			<div class="entry_img"><img src="//img.youtube.com/vi/<?php the_field('youtube'); ?>/hqdefault.jpg" alt="" class="youtube_img">
-				<div class="y_play"></div>
-			</div>
-		<?php } ?>
+			<?php if (get_field('preview_image') == true) { ?>
+				<div class="entry_img"><img src="<?php the_field('preview_image'); ?>" alt="" class="youtube_img">
+					<div class="y_play"></div>
+				</div>
+			<?php }  ?>
+			<?php if (get_field('youtube') == true) { ?>
+				<div class="entry_img"><img src="//img.youtube.com/vi/<?php the_field('youtube'); ?>/hqdefault.jpg" alt="" class="youtube_img">
+					<div class="y_play"></div>
+				</div>
+			<?php }  ?>
 		</div>
 		<div class="entry_text">
 			<div class="entry-header">
-				<?php the_title(sprintf('<div class="entry-title"><a href="%s" rel="bookmark">', esc_url(get_permalink())), '</a></div>'); ?>
+            <div class="entry-title modal-trigger-<?php the_ID(); ?> pointer"><?php the_title(); ?></div>
 			</div>
 			<div class="entry-content">
 				<?php
@@ -100,7 +103,7 @@
 				<?php if (get_field('my_video') == true) {
 					echo do_shortcode('[video src="' . get_field('my_video') . '"]');
 				} else { ?>
-					<iframe src="https://www.youtube.com/embed/<?php the_field('youtube'); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<iframe src="https://www.youtube.com/embed/<?php the_field('youtube'); ?>?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				<?php } ?>
 			</div>
 		</div>
@@ -118,6 +121,12 @@
 
 		$modalOverlay.on('click', function() {
 			$modalContainer.toggleClass('modal--show');
+			$("iframe").each(function() {
+				$(this)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+				$modalContainer = $('.modal-container-<?php the_ID(); ?>');
+				const video = $modalContainer.find('video')[0];
+				video.pause();
+			})
 		});
 	});
 </script>

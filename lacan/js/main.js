@@ -159,6 +159,7 @@ jQuery(document).ready(function ($) {
 	let fontSize;
 	let color_mode;
 	$('.font_increase').click(function () {
+		$(".article_content_wraper").css({ transition: 'all 1s ease-in-out 0s', width: '99%' });
 		$('.entry-content').css("font-size", function () {
 			if ($(this).css("font-size") < "26px") {
 				fontSize = parseInt($(this).css("font-size")) + 2 + "px";
@@ -220,7 +221,7 @@ jQuery(document).ready(function ($) {
 				if (fixed) {
 					$("article h1").removeClass('fixed');
 					$(".logo").removeClass('fixed');
-					// $(".article_content_wraper").css({ transition: 'all 1s ease-in-out 1s', width: '70%' });
+					$(".article_content_wraper").css({ transition: 'all 1s ease-in-out 1s', width: '70%' });
 					fixed = false;
 				}
 			}
@@ -228,45 +229,46 @@ jQuery(document).ready(function ($) {
 		$(".article_content").on('scroll', onScroll);
 
 	});
-
-
-	$(".tooltip_time").on('click', function () {
+	$(".tooltip_time").on('hover click', function () {
+		var $this = $(this).parents('.tooltips');
 		if ($(".time_descr").hasClass('show')) {
 			$(".time_descr").fadeOut().removeClass('show');
-			$(".tooltip_items").css("border-right", "solid 2px transparent");
-			$(".tooltip_descr").css("border-right", "solid 2px transparent");
+			$(".tooltip_items").removeClass('border_tooltips');
+			$(".tooltip_descr").removeClass('border_tooltips');
 		} else {
-			$(".tooltip_items").css("border-right", "solid 2px var(--dark-green-blue)");
-			$(".tooltip_descr").css("border-right", "solid 2px var(--dark-green-blue)");
-			$(".time_descr").fadeIn().css("display", "flex").addClass("show");
+			$(".tooltip_items").addClass('border_tooltips');
+			$(".tooltip_descr").addClass('border_tooltips');
+			$this.find(".time_descr").fadeIn().css("display", "flex").addClass("show");
 			$(".price_descr").removeClass('show').css("display", "none");
 			$(".loc_descr").removeClass('show').css("display", "none");
 		}
 	});
 
-	$(".tooltip_price").on('click', function () {
+	$(".tooltip_price").on('hover click', function () {
+		var $this = $(this).parents('.tooltips');
 		if ($(".price_descr").hasClass('show')) {
 			$(".price_descr").fadeOut().removeClass('show');
-			$(".tooltip_items").css("border-right", "solid 2px transparent");
-			$(".tooltip_descr").css("border-right", "solid 2px transparent");
+			$(".tooltip_items").removeClass('border_tooltips');
+			$(".tooltip_descr").removeClass('border_tooltips');
 		} else {
-			$(".tooltip_items").css("border-right", "solid 2px var(--dark-green-blue)");
-			$(".tooltip_descr").css("border-right", "solid 2px var(--dark-green-blue)");
-			$(".price_descr").fadeIn().css("display", "flex").addClass("show");
+			$(".tooltip_items").addClass('border_tooltips');
+			$(".tooltip_descr").addClass('border_tooltips');
+			$this.find(".price_descr").fadeIn().css("display", "flex").addClass("show");
 			$(".time_descr").removeClass('show').css("display", "none");
 			$(".loc_descr").removeClass('show').css("display", "none");
 		}
 	});
 
-	$(".tooltip_loc").on('click', function () {
+	$(".tooltip_loc").on('hover click', function () {
+		var $this = $(this).parents('.tooltips');
 		if ($(".loc_descr").hasClass('show')) {
 			$(".loc_descr").fadeOut().removeClass('show');
-			$(".tooltip_items").css("border-right", "solid 2px transparent");
-			$(".tooltip_descr").css("border-right", "solid 2px transparent");
+			$(".tooltip_items").removeClass('border_tooltips');
+			$(".tooltip_descr").removeClass('border_tooltips');
 		} else {
-			$(".tooltip_items").css("border-right", "solid 2px var(--dark-green-blue)");
-			$(".tooltip_descr").css("border-right", "solid 2px var(--dark-green-blue)");
-			$(".loc_descr").fadeIn().css("display", "flex").addClass("show");
+			$(".tooltip_items").addClass('border_tooltips');
+			$(".tooltip_descr").addClass('border_tooltips');
+			$this.find(".loc_descr").fadeIn().css("display", "flex").addClass("show");
 			$(".time_descr").removeClass('show').css("display", "none");
 			$(".price_descr").removeClass('show').css("display", "none");
 		}
@@ -279,15 +281,30 @@ jQuery(document).ready(function ($) {
 		loop: true,
 		autoplay: true,
 		rendererSettings: {
-		  progressiveLoad: true,
-		  preserveAspectRatio: "xMidYMid meet",
-		  imagePreserveAspectRatio: "xMidYMid meet"
+			progressiveLoad: true,
+			preserveAspectRatio: "xMidYMid meet",
+			imagePreserveAspectRatio: "xMidYMid meet"
 		},
 		path: '/wp-content/themes/lacan/img/Glass_Shape_Animation.json'
-	  };
-	  anim2 = lottie.loadAnimation(animData2);
-	  anim2.addEventListener("DOMLoaded", function() {
+	};
+	anim2 = lottie.loadAnimation(animData2);
+	anim2.addEventListener("DOMLoaded", function () {
 		$("#lottie2").css("background", "url()");
-	  });
+		console.log("lottie loaded");
+	});
+
+	$(function () {
+		const form = document.querySelector(".sorting_form");
+		if (form) {
+		const select = document.querySelector(".sorting_select");
+		$(".sort_list").on("change", function () {
+			$(".sort_list").not(this).prop("checked", false);
+		});
+		
+			select.addEventListener("change", function () { 
+				form.submit(); 
+			});
+		}
+	});
 
 });

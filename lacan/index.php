@@ -15,29 +15,26 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+<div class="main_content archive">
+	<div class="article_header">
+		<div class="logo">
+		<a href="/"><img src="<?php the_field('logo_black', 'option'); ?>" class="logo_rtl"></a>
+        <a href="/"><img src="<?php the_field('logo_eng', 'option'); ?>" class="logo_eng"></a>
+		</div>
+	</div>
+	<div class="main_page_body">
+	<div class="entry-header"><?php the_archive_title('<h1 class="page-title">', '</h1>'); ?></div>
+		<div class="archive_text">
+		<?php echo category_description( $cat->cat_ID ); ?>
+	</div>
+		<?php if (have_posts()) : ?>
 
 		<?php
-		if ( have_posts() ) :
-
-			if ( is_home() && ! is_front_page() ) :
-				?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
-				<?php
-			endif;
-
 			/* Start the Loop */
-			while ( have_posts() ) :
+			while (have_posts()) :
 				the_post();
 
-				/*
-				 * Include the Post-Type-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_type() );
+				get_template_part('template-parts/content', 'archive');
 
 			endwhile;
 
@@ -45,13 +42,12 @@ get_header();
 
 		else :
 
-			get_template_part( 'template-parts/content', 'none' );
+			get_template_part('template-parts/content', 'none');
 
 		endif;
 		?>
-
-	</main><!-- #main -->
+	</div>
+</div>
 
 <?php
-get_sidebar();
 get_footer();

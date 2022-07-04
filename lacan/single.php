@@ -32,6 +32,5 @@ get_header();
 	</div>
 	<div class="image_wraper"><?php lacan_post_thumbnail(); ?></div>
 </div>
-<script src="<?php echo get_template_directory_uri(); ?>/js/jquery-resizable.js"></script>
 <?php
 get_footer();

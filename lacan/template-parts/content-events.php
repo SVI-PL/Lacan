@@ -15,15 +15,16 @@ $cur_terms = get_the_terms(get_the_ID(), 'categorys');
 $category_id = $cur_terms[0]->term_id;
 // Get the URL of this category
 $category_link = get_category_link($category_id);
-$date_event = "past";
-if (get_field('date_event') < date('Y/m/d')) {
+if (date('d/m/Y') <= get_field('date_event')) {
 	$date_event = "future";
 } else {
 	$date_event = "past";
 }
+
 ?>
+
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<div class="entry-content <?php echo $date_event ?>">
+	<div class="entry-content <?php echo $date_event . date('d/m/Y') ?>">
 		<div class="entry_img"><?php lacan_post_thumbnail(); ?></div>
 		<div class="entry_text">
 			<div class="entry-header">

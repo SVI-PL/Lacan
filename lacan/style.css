@@ -592,3 +592,9 @@ select {
 textarea {
 	width: 100%;
 }
+body.admin-bar #masthead {
+    height: calc(100vh - 32px) !important;
+}
+body.admin-bar .main_content.archive {
+    height: calc(100vh - 32px) !important;
+}
