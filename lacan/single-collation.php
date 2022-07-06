@@ -29,42 +29,27 @@ get_header();
 		$general_array = get_field('Collation');
 		$media_array = get_field('categories_media');
 		?>
-
+		<form id="redirectForm" method="post" action="/collation">
+			<input class="form-control" name="event_array" value="<?php echo implode(",", $event_array); ?>" />
+			<input class="form-control" name="general_array" value="<?php echo implode(",", $general_array); ?>" />
+			<input class="form-control" name="media_array" value="<?php echo implode(",", $media_array); ?>" />
+			<button type="submit" class="btn btn-primary btn-block" value="Pay">Submit</button>
+		</form>
 
 		<?php if ($event_array) { ?>
 			<div class="post_type_block event">
 				<div class="post_type_name">מפגשים, סמינרים ואירועים</div>
 				<?php
-				foreach ($event_array as $events_ids) {
-					$term = get_term($events_ids);
-					$slug = array($term->slug);
-
-					$query = new WP_Query([
-
-						'tax_query' =>
-						[
-							'relation' => 'AND',
-							[
-								'taxonomy' => 'categorys', // taxonomy name
-								'field'    => 'slug',
-								'terms'    => $slug // slug of the term
-							],
-						],
-						'post_type' => 'events', // post_type name
-						'order'     => 'ASC',
-						"posts_per_page" => 3,
-					]);
+				$query = new WP_Query('post_type=events&order=DESC&taxonomy=categorys&posts_per_page=3&terms=' . implode(",", $event_array));
 					if ($query->have_posts()) {
 						while ($query->have_posts()) {
 							$query->the_post();
 							get_template_part('template-parts/content', 'events');
 						}
-				?>
-						<div class="more_post"><a href="/categorys/<?php echo implode($slug);  ?>">טען עוד ></a></div>
-				<?php
 						wp_reset_postdata();
 					}
-				} ?>
+				 ?>
+				<div class="more_post"><a href="#">טען עוד ></a></div>
 			</div>
 		<?php } ?>
 
@@ -74,37 +59,17 @@ get_header();
 			<div class="post_type_block general">
 				<div class="post_type_name">מאמרים</div>
 				<?php
-				foreach ($general_array as $general_ids) {
-					$term = get_term($general_ids);
-					$slug = array($term->slug);
-
-					$query = new WP_Query([
-
-						'tax_query' =>
-						[
-							'relation' => 'AND',
-							[
-								'taxonomy' => 'category', // taxonomy name
-								'field'    => 'slug',
-								'terms'    => $slug // slug of the term
-							],
-						],
-						'post_type' => 'post', // post_type name
-						'order'     => 'ASC',
-						"posts_per_page" => 3,
-					]);
-
+				$query = new WP_Query('post_type=post&order=DESC&posts_per_page=3&cat=' . implode(",", $general_array));
+					
 					if ($query->have_posts()) {
 						while ($query->have_posts()) {
 							$query->the_post();
 							get_template_part('template-parts/content', 'archive');
 						}
-				?>
-						<div class="more_post"><a href="/category/<?php echo implode($slug);  ?>">טען עוד ></a></div>
-				<?php
 						wp_reset_postdata();
 					}
-				} ?>
+				 ?>
+				<div class="more_post"><a href="#">טען עוד ></a></div>
 			</div>
 		<?php } ?>
 
@@ -113,37 +78,17 @@ get_header();
 			<div class="post_type_block media">
 				<div class="post_type_name">מדיה</div>
 				<?php
-				foreach ($media_array as $media_ids) {
-					$term = get_term($media_ids);
-					$slug = array($term->slug);
-
-					$query = new WP_Query([
-
-						'tax_query' =>
-						[
-							'relation' => 'AND',
-							[
-								'taxonomy' => 'medias', // taxonomy name
-								'field'    => 'slug',
-								'terms'    => $slug // slug of the term
-							],
-						],
-						'post_type' => 'media', // post_type name
-						'order'     => 'ASC',
-						"posts_per_page" => 3,
-					]);
-
+				
+				$query = new WP_Query('post_type=media&order=DESC&taxonomy=medias&posts_per_page=3&terms=' . implode(",", $media_array));
 					if ($query->have_posts()) {
 						while ($query->have_posts()) {
 							$query->the_post();
 							get_template_part('template-parts/content', 'media');
 						}
-				?>
-						<div class="more_post"><a href="/medias/<?php echo implode($slug);  ?>">טען עוד ></a></div>
-				<?php
 						wp_reset_postdata();
 					}
-				} ?>
+				 ?>
+				<div class="more_post"><a href="#">טען עוד ></a></div>
 			</div>
 		<?php } ?>
 	</div>

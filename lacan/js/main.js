@@ -307,4 +307,8 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
+	$(".more_post").on("click", function () {
+		$("#redirectForm").submit(); 
+	});
+
 });

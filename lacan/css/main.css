@@ -934,7 +934,27 @@ h1 a {
     width: 95%;
 }
 
-.past {
+.past .entry_img {
+    opacity: 0.5;
+}
+
+.past .entry-header {
+    opacity: 0.5;
+}
+
+.past .entry-meta {
+    opacity: 0.5;
+}
+
+.past p {
+    opacity: 0.5;
+}
+
+.past .price_descr.show p {
+    opacity: 1;
+}
+
+.past .tooltip_items {
     opacity: 0.5;
 }
 
@@ -1768,6 +1788,9 @@ iframe {
     text-decoration: none;
 }
 nav.navigation.posts-navigation {
+    display: none;
+}
+form#redirectForm {
     display: none;
 }
 
